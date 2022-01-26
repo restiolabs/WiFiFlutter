@@ -751,7 +751,13 @@ public class WifiIotPlugin
                 } else {
                   success = ConnectivityManager.setProcessDefaultNetwork(network);
                 }
-                manager.unregisterNetworkCallback(this);
+                  
+                try {  
+                    manager.unregisterNetworkCallback(this);
+                } catch(Exception e) {
+                    //pass
+                }
+                  
                 final boolean result = success;
                 final Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(
@@ -1038,7 +1044,11 @@ public class WifiIotPlugin
       if (networkCallback != null) {
         final ConnectivityManager connectivityManager =
             (ConnectivityManager) moContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-        connectivityManager.unregisterNetworkCallback(networkCallback);
+        try {  
+            connectivityManager.unregisterNetworkCallback(networkCallback);
+        } catch(Exception e) {
+            // pass
+        }
       } else {
         Log.e(
             WifiIotPlugin.class.getSimpleName(),
