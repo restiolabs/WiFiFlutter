@@ -1279,7 +1279,11 @@ public class WifiIotPlugin
         final ConnectivityManager connectivityManager =
             (ConnectivityManager) moContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if (networkCallback != null) connectivityManager.unregisterNetworkCallback(networkCallback);
+        try {  
+            if (networkCallback != null) connectivityManager.unregisterNetworkCallback(networkCallback);
+        } catch(Exception e) {
+            // pass
+        }
 
         networkCallback =
             new ConnectivityManager.NetworkCallback() {
